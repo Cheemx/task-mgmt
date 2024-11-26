@@ -32,6 +32,7 @@ const registerUser = async (req, res) => {
         res.status(201).json({ message: 'User Registered successfully', data: newUser.rows[0]})
     } catch (err) {
         console.error(err.message)
+        res.status(500).json({ message: "Internal Server Error!"})
     }
 }
 
@@ -69,6 +70,7 @@ const loginUser = async (req, res) => {
         res.status(200).json({ message: 'Login Successful'})
     } catch (err) {
         console.error(err.message)
+        res.status(500).json({message: "Internal Server Error!"})
     }
 }
 
@@ -78,7 +80,8 @@ const logoutUser = async (req, res) => {
         res.clearCookie('auth_token')
         res.status(200).json({ message: "Logout Successful"})
     } catch (err) {
-        throw new Error(401, err.message);
+        console.error(err.message)
+        res.status(500).json({message: "Internal Server Error!"})
     }
 }
 
