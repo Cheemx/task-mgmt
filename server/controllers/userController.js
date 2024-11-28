@@ -77,7 +77,12 @@ const loginUser = async (req, res) => {
 // Logout a User and delete a cookie
 const logoutUser = async (req, res) => {
     try {
-        res.clearCookie('auth_token')
+        res.clearCookie('auth_token', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+            maxAge: 3600000,
+        })
         res.status(200).json({ message: "Logout Successful"})
     } catch (err) {
         console.error(err.message)
